@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup as bs4
 from sys import exit
 from datetime import datetime as dt
 import json as j
+from ai import chat
 
 p = print
 
@@ -155,6 +156,7 @@ class Main:
     
     async def process_article(self, dict, latest, do, cp="process_article"):
         data = {}
+        prompt = "Paraphrase this: "
         try:
             url = dict['url']
             
@@ -168,11 +170,11 @@ class Main:
                     article_img = 'https://nation.africa' + str(soup.find("div", class_="article-page").find("img").attrs["src"])
                     image_caption = soup.find("figcaption", class_="article-picture_caption").find("p").text.strip()
                     image_copyright = soup.find("div", class_="article-picture_copyright").text.strip()
-                    summary = soup.find("section").find(class_="rte--list").find('li').text.strip()
+                    summary = chat(prompt + soup.find("section").find(class_="rte--list").find('li').text.strip())
                     date = dict['date']
                     article_paragraph = []
                     
-                    data = {"title": dict["title"], "article_img": article_img, "image_caption": image_caption, "image_copyright": image_copyright, "summary": summary, "date": f'Current time: {str(dt.now())}, article_publish_time: {date}', "article_paragraph": article_paragraph}
+                    data = {"title": chat(prompt + dict["title"]), "article_img": article_img, "image_caption": image_caption, "image_copyright": image_copyright, "summary": summary, "date": f'Current time: {str(dt.now())}, article_publish_time: {date}', "article_paragraph": article_paragraph}
                     
                 except Exception as e: pass
     
@@ -186,7 +188,7 @@ class Main:
                     if not text.startswith("Also Read:"):
                         data["article_paragraph"].append(text)
                     
-            data["article_paragraph"] = ' '.join(data["article_paragraph"])
+            data["article_paragraph"] = chat(prompt + ' '.join(data["article_paragraph"]))
         except Exception as e: pass
         try:
             save = await self.comps.save_article(data, do)
