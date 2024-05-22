@@ -1,0 +1,9 @@
+bottle==0.12.25
+cryptography==3.4.8
+json_stream==2.3.2
+Requests==2.31.0
+discord==2.3.2
+bs4
+google-api-python-client
+IPython
+google-generativeai
