@@ -48,8 +48,8 @@ class Backend_apps:
 </head>
 <body>
     <div class="article">
-        <img src={detail[0]["article_img"]} alt={detail[0]["image_caption"]}>
-        <p>{detail[0]["image_copyright"]}</p>
+        <img src={detail[0]["article_img"]}>
+        <h3>{detail[0]["title"]}</h3>
         <p>{detail[0]["summary"]}</p>
         <p>{detail[0]["date"]}</p>
         <p>{detail[0]["article_paragraph"]}</p>

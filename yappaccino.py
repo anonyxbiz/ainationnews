@@ -170,11 +170,12 @@ class Main:
                     article_img = 'https://nation.africa' + str(soup.find("div", class_="article-page").find("img").attrs["src"])
                     image_caption = soup.find("figcaption", class_="article-picture_caption").find("p").text.strip()
                     image_copyright = soup.find("div", class_="article-picture_copyright").text.strip()
+                    title = chat(prompt + dict["title"])
                     summary = chat(prompt + soup.find("section").find(class_="rte--list").find('li').text.strip())
                     date = dict['date']
                     article_paragraph = []
                     
-                    data = {"title": chat(prompt + dict["title"]), "article_img": article_img, "image_caption": image_caption, "image_copyright": image_copyright, "summary": summary, "date": f'Current time: {str(dt.now())}, article_publish_time: {date}', "article_paragraph": article_paragraph}
+                    data = {"title": title, "article_img": article_img, "image_caption": image_caption, "image_copyright": image_copyright, "summary": summary, "date": f'Current time: {str(dt.now())}, article_publish_time: {date}', "article_paragraph": article_paragraph}
                     
                 except Exception as e: pass
     
