@@ -156,7 +156,7 @@ class Main:
     
     async def process_article(self, dict, latest, do, cp="process_article"):
         data = {}
-        prompt = "Paraphrase this: "
+        prompt = "Paraphrase this text of an article and reply with only the paraphrased text: "
         try:
             url = dict['url']
             

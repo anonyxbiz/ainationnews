@@ -1,4 +1,4 @@
-import asyncio as a, json as j
+import asyncio as a, json as j, random
 from bottle import Bottle, route, run, request, static_file, response as r, post, get, put, delete, template, redirect, HTTPResponse, abort, hook
 from threading import Thread
 from yappaccino import Main as news_gen
@@ -36,23 +36,24 @@ class Backend_apps:
                 
                 detail = await self.news.latest_news()
                 if data[1] == "get":
+                    detail = random.choice(detail)
                     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{detail[0]["title"]}</title>
+    <title>{detail["title"]}</title>
     <style>
         /* Add your CSS styles here */
     </style>
 </head>
 <body>
     <div class="article">
-        <img src={detail[0]["article_img"]}>
-        <h3>{detail[0]["title"]}</h3>
-        <p>{detail[0]["summary"]}</p>
-        <p>{detail[0]["date"]}</p>
-        <p>{detail[0]["article_paragraph"]}</p>
+        <img src={detail["article_img"]}>
+        <h3>{detail["title"]}</h3>
+        <p>{detail["summary"]}</p>
+        <p>{detail["date"]}</p>
+        <p>{detail["article_paragraph"]}</p>
     </div>
 </body>
 </html>'''
