@@ -3,6 +3,7 @@ from os import system as o
 import google.generativeai as genai
 from IPython.display import display
 from IPython.display import Markdown
+import json as j
 
 with open("GOOGLE_API_KEY.json", "r") as f:
     GOOGLE_API_KEY = j.load(f)["GOOGLE_API_KEY"]
